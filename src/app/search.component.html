@@ -1,0 +1,29 @@
+
+<div *ngIf='edited' class="editcontainer">
+    <h2>Edit {{edited.show.name}}</h2>
+    <input [(ngModel)]="edited.show.name" type="text">
+    <label>Enter score: (0 to 20)</label>
+    <input [(ngModel)]="edited.score" type="number">
+    <p *ngIf="edited.score>20">Pleae enter score 0-20</p>
+    <textarea class="wysiwyg" [(ngModel)]="edited.show.summary"></textarea>
+    <button [disabled]="edited.score>20" (click)="save(edited)">save</button>
+</div>
+
+
+<input class="search" placeholder="Type 3 or more letters to search..." (keyup)='keyUp.next($event)' type="text" />
+
+<button (click)="sort('sortbyname')">Sort by name</button>
+<button (click)="sort('sortbyscore')">Sort by rating</button>
+<div class="searchcontainer">
+    <div  *ngFor="let item of results; let i = index" class="resultbox">
+        <div *ngIf="item.show.image">
+            <img [src]="item.show.image.medium">
+        </div>
+        <h2>{{item.show.name}}</h2>
+  
+        <b>Score: {{item.score}}</b>
+        <div [innerHTML]="item.show.summary"></div>
+        <button (click)="edit(item)">Edit</button>
+    </div>
+</div>
+
